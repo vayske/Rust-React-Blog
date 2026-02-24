@@ -1,0 +1,27 @@
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-blog
+    restart: always
+    volumes:
+      - ./posts:/app/posts
+    networks:
+      - blog-net
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cf-tunnel
+    restart: always
+    environment:
+      - TUNNEL_TOKEN=${CF_TUNNEL_TOKEN}
+    command: tunnel --no-autoupdate run
+    networks:
+      - blog-net
+    depends_on:
+      - blog
+
+networks:
+  blog-net:
+    driver: bridge
