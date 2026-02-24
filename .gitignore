@@ -1,0 +1,17 @@
+.DS_Store
+*.log
+
+.vscode/
+.idea/
+*.swp
+*.swo
+.vim/
+
+frontend/node_modules/
+frontend/dist/
+frontend/public/
+
+backend/target/
+backend/**/*.rs.bk
+
+prod_test/
