@@ -15,3 +15,6 @@ backend/target/
 backend/**/*.rs.bk
 
 prod_test/
+posts/
+
+.env

@@ -11,11 +11,19 @@ export default function Profile() {
         <h1 className="text-3xl font-bold text-stone-900 mb-3 tracking-wide">
           SinceL
         </h1>
-        <p className="text-stone-600 leading-relaxed mb-5 font-light">
-          全栈开发与 DevOps 工程师。日常主写 Rust 和 React，偶尔研究 WebGL 图形学。
-          不敲代码的时候，我可能在折腾 Minecraft 的 Create 模组、冲一杯咖啡，或者在照料我的银莲花。
-          这里是我的数字游牧营地，记录代码、旅行与生活片段。
+        <p className="text-amber-600 font-mono text-sm mb-4 font-semibold uppercase tracking-wider">
+          Freelance Programmer // DevOps & Fullstack
         </p>
+
+        <div className="text-stone-600 space-y-2 mb-6">
+          <p>
+            Hardcore gamer at heart. I spend my time building automated wonders in <strong>Minecraft (Create mod)</strong>,
+            dying in <strong>Dark Souls</strong>, and chasing high scores in rhythm games.
+          </p>
+          <p>
+            Japanese Music Lover. My favorite singer is <strong>Isekaijoucho (ヰ世界情緒)</strong>.
+          </p>
+        </div>
 
         <div className="flex justify-center sm:justify-start gap-6 text-sm font-medium font-mono mt-2">
           {/* GitHub */}
