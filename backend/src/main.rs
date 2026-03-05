@@ -1,5 +1,8 @@
 use axum::{
-    extract::Path,
+    extract::{Path, Request},
+    http::HeaderMap,
+    middleware::Next,
+    response::Response,
     routing::get,
     Router,
     Json,
@@ -45,6 +48,7 @@ async fn main() {
             ServeDir::new("./dist")
                 .fallback(ServeFile::new("./dist/index.html"))
         )
+        .layer(axum::middleware::from_fn(track_visitor))
         .layer(cors);
 
     let port = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string());
@@ -124,4 +128,31 @@ async fn list_posts() -> Json<Vec<PostSummary>> {
     posts.sort_by(|a, b| b.metadata.date.cmp(&a.metadata.date));
 
     Json(posts)
+}
+
+
+pub async fn track_visitor(
+    headers: HeaderMap,
+    request: Request,
+    next: Next,
+) -> Response {
+    // 1. Get IP
+    let ip = headers
+        .get("cf-connecting-ip")
+        .and_then(|val| val.to_str().ok())
+        .unwrap_or("Unknown IP");
+
+    // 2. Get Country Code
+    let country = headers
+        .get("cf-ipcountry")
+        .and_then(|val| val.to_str().ok())
+        .unwrap_or("Unknown Region");
+
+    // 3. Get Path
+    let path = request.uri().path();
+
+    // Log
+    println!("访客出没: IP [{}], 地区 [{}], 正在偷看 [{}]", ip, country, path);
+
+    next.run(request).await
 }

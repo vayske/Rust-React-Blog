@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 import type { PostMetadata } from '../types'
 
 export default function PostDetail() {
@@ -44,6 +45,7 @@ export default function PostDetail() {
       </header>
 
       <ReactMarkdown
+        rehypePlugins={[rehypeRaw]}
         components={{
           h2: ({ node, ...props }) => <h2 className="text-2xl font-semibold text-stone-800 mt-12 mb-6" {...props} />,
           h3: ({ node, ...props }) => <h3 className="text-xl font-medium text-stone-700 mt-8 mb-4" {...props} />,
@@ -52,7 +54,7 @@ export default function PostDetail() {
           strong: ({ node, ...props }) => <strong className="font-semibold text-stone-900 bg-stone-200/30 px-1 rounded" {...props} />,
           blockquote: ({ node, ...props }) => (
             <blockquote
-              className="border-l-4 border-amber-500 bg-stone-100 px-6 py-4 my-8 rounded-r-lg shadow-sm [&>p]:m-0 [&>p]:text-stone-500 [&>p]:italic [&>p]:text-base"
+              className="border-l-4 border-amber-500 bg-stone-100 px-6 py-4 my-8 rounded-r-lg shadow-sm [&>p]:m-0 [&>p]:text-stone-500 [&>p]:text-base"
               {...props}
             />
           ),
